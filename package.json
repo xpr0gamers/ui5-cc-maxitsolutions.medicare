@@ -2,5 +2,8 @@
   "name": "ui5-cc-maxitsolutions.medicare",
   "version": "0.0.1",
   "description": "Medicare Datepicker control",
-  "license": "Beerware"
+  "license": "Beerware",
+  "scripts": {
+    "start": "start index.html"
+  }
 }
