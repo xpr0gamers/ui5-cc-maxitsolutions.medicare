@@ -7,49 +7,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MediCare</title>
 
-    <script>
-        window["sap-ushell-config"] = {
-            defaultRenderer: "fiori2",
-            applications: {},
-            platform: "",
-            bootstrapPlugins: {
-                RuntimeAuthoringPlugin: {
-                    component: "sap.ushell.plugins.rta",
-                    config: {
-                        validateAppVersion: false,
-                    },
-                },
-                PersonalizePlugin: {
-                    component: "sap.ushell.plugins.rta-personalize",
-                    config: {
-                        validateAppVersion: false,
-                    },
-                },
-            },
-        };
-    </script>
-
     <script id="sap-ui-bootstrap" src="https://sapui5.hana.ondemand.com/1.106.0/resources/sap-ui-core.js"
-        data-sap-ui-libs="sap.m,sap.ushell,sap.collaboration,sap.ui.layout" 
-        data-sap-ui-compatVersion="edge"
-        data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+        data-sap-ui-libs="sap.m,sap.ushell,sap.collaboration,sap.ui.layout" data-sap-ui-compatVersion="edge"
         data-sap-ui-resourceroots='{
-			"cc.maxitsolutions.medicare": "."
-		}'
+            "cc.maxitsolutions.medicare": "."
+        }'
         data-sap-ui-theme="sap_fiori_3" data-sap-ui-frameOptions="allow"></script>
     <script>
-        sap.ui.getCore().attachInit(() => {
-            sap.ui.define([
-                "sap/ui/core/mvc/XMLView"
-            ], function (XMLView) {
-                "use strict";
-                XMLView.create({
-                    viewName: "cc.maxitsolutions.medicare.App"
-                }).then(function (oView) {
-                    oView.placeAt("content");
-                });
-            });
-        });
+        sap.ui.require([
+            "sap/ui/core/Core"
+        ], (Core) => Core.attachInit(() => sap.ui.require([
+            "sap/ui/core/mvc/XMLView",
+        ], async (XMLView) => {
+            const view = await XMLView.create({
+                definition: `
+    <mvc:View 
+        xmlns:mvc="sap.ui.core.mvc" 
+        xmlns="sap.m"
+        xmlns:own="cc.maxitsolutions.medicare" 
+        height="100%">
+      <App>
+        <Page showHeader="false">
+          <VBox alignItems="Center"
+                justifyContent="Center"
+                height="100%">
+            <own:Datepicker sType="weeks"/>
+          </VBox>
+        </Page>
+      </App>
+    </mvc:View>`,
+            })
+            view.placeAt("content");
+        })))
     </script>
 
 </head>
